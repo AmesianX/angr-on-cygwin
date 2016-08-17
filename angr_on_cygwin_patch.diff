@@ -1,0 +1,70 @@
+diff -urN angr_orig/angr-z3/setup.py angr/angr-z3/setup.py
+--- angr_orig/angr-z3/setup.py	2016-08-17 20:48:14.141881500 +0900
++++ angr/angr-z3/setup.py	2016-08-17 21:04:01.499338600 +0900
+@@ -20,7 +20,7 @@
+ elif sys.platform == 'win32':
+     library_file = "libz3.dll"
+ else:
+-    library_file = "libz3.so"
++    library_file = "libz3.dll"
+ 
+ def _configure_z3():
+     if sys.platform == 'win32':
+diff -urN angr_orig/claripy/claripy/backends/backend_z3.py angr/claripy/claripy/backends/backend_z3.py
+--- angr_orig/claripy/claripy/backends/backend_z3.py	2016-08-17 20:50:09.769894700 +0900
++++ angr/claripy/claripy/backends/backend_z3.py	2016-08-17 21:04:52.219091900 +0900
+@@ -28,7 +28,7 @@
+ elif sys.platform == 'win32':
+     z3_library_file = "libz3.dll"
+ else:
+-    z3_library_file = "libz3.so"
++    z3_library_file = "libz3.dll"
+ 
+ from ..errors import ClaripyZ3Error
+ 
+diff -urN angr_orig/pyvex/pyvex/__init__.py angr/pyvex/pyvex/__init__.py
+--- angr_orig/pyvex/pyvex/__init__.py	2016-08-17 20:48:50.877178400 +0900
++++ angr/pyvex/pyvex/__init__.py	2016-08-17 21:05:48.011254600 +0900
+@@ -13,7 +13,7 @@
+     if sys.platform == 'darwin':
+         library_file = "pyvex_static.dylib"
+     else:
+-        library_file = "pyvex_static.so"
++        library_file = "pyvex_static.dll"
+ 
+     pyvex_paths = [os.path.join(os.path.dirname(__file__), '..', 'pyvex_c', library_file),
+                     os.path.join(sys.prefix, 'lib', library_file)]
+@@ -31,7 +31,7 @@
+             pyvex_path = path
+             break
+     else:
+-        raise ImportError("unable to find pyvex_static.so")
++        raise ImportError("unable to find pyvex_static.dll")
+ 
+     ffi.cdef(_ffi_str)
+     # RTLD_GLOBAL used for sim_unicorn.so
+diff -urN angr_orig/pyvex/pyvex_c/Makefile angr/pyvex/pyvex_c/Makefile
+--- angr_orig/pyvex/pyvex_c/Makefile	2016-08-17 20:48:50.892573200 +0900
++++ angr/pyvex/pyvex_c/Makefile	2016-08-17 21:06:28.961940400 +0900
+@@ -7,6 +7,9 @@
+ ifeq ($(UNAME), Linux)
+ 	LIBRARY_FILE=pyvex_static.so
+ endif
++ifeq ($(UNAME), CYGWIN_NT-6.3)
++	LIBRARY_FILE=pyvex_static.dll
++endif
+ 
+ ${LIBRARY_FILE}: pyvex_static.c pyvex_logging.c ${VEX_PATH}/libvex.a
+ 	gcc -O2 -shared -fPIC -I${VEX_PATH}/pub --std=c99 -o ${LIBRARY_FILE} pyvex_static.c pyvex_logging.c ${VEX_PATH}/libvex.a
+diff -urN angr_orig/pyvex/setup.py angr/pyvex/setup.py
+--- angr_orig/pyvex/setup.py	2016-08-17 20:48:50.924410200 +0900
++++ angr/pyvex/setup.py	2016-08-17 21:07:00.538316700 +0900
+@@ -10,7 +10,7 @@
+ if sys.platform == 'darwin':
+     library_file = "pyvex_static.dylib"
+ else:
+-    library_file = "pyvex_static.so"
++    library_file = "pyvex_static.dll"
+ 
+ 
+ VEX_LIB_NAME = "vex" # can also be vex-amd64-linux

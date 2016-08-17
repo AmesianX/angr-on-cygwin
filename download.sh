@@ -1,0 +1,16 @@
+git clone https://github.com/libffi/libffi.git
+git clone https://github.com/angr/angr-doc.git
+git clone https://github.com/angr/simuvex.git
+git clone https://github.com/angr/cle.git
+git clone https://github.com/angr/vex.git
+git clone https://github.com/angr/pyvex.git
+git clone https://github.com/angr/archinfo.git
+git clone https://github.com/angr/fidget.git
+git clone https://github.com/angr/angr.git
+git clone https://github.com/angr/binaries.git
+git clone https://github.com/angr/claripy.git
+git clone https://github.com/angr/angr.github.io.git
+git clone https://github.com/angr/angr-z3.git
+git clone https://github.com/angr/angr-management.git
+git clone https://github.com/angr/angr-dev.git
+git clone https://github.com/angr/wheels.git

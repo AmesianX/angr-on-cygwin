@@ -1,4 +1,5 @@
 This time is not work..
+현재 버전에서 작동하지 않음
 
 # $ mkdir angr
 # $ cd angr
